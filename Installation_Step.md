@@ -118,3 +118,15 @@ ___
   `/usr/lpp/mmfs/gui/cli/mkuser <username> -p "<password>" -g SecurityAdmin` <br>
 ___
 11. Tuning Filesystem <br>
+  `mmlsfs <filesystem_name> --perfileset -quota` <br>
+  `mmchfs <filesystem_name> -Q yes` <br>
+  `mmlsfs <filesystem_name> -Q` <br>
+  `mmchconfig enforceFilesetQuotaOnRoot=yes -i` <br>
+  `mmchconfig ignoreReplicationForQuota=yes -i` <br>
+  `mmchconfig controlSetxattrImmutableSELinux=yes -i` <br>
+  `mmchfs <filesystem_name> --filesetdf` <br>
+  `mmchfs <filesystem_name> --auto-inode-limit` <br>
+  ___
+
+  ## Expected Result
+  You can connect to your GUI node and everything in storage scale cluster healthy
