@@ -6,7 +6,7 @@ ___
 ___
 3. Setup Pre-requisite on Bastion, Spectrum Node1, Spectrum Node2
   -  Login as root
-  -  Configure /etc/hosts add following
+  -  Configure `/etc/hosts` add following
       ```bash
         <ip_bastion> <Bastion_name>
         <ip_spectrum_node1> <Spectrum_Node1_name>
@@ -21,7 +21,7 @@ ___
   - Check Storage
     -  `multipath -ll`
     -  In case you didn't see storage run `scsi-rescan`
-    -  Add following in /etc/multipath.conf
+    -  Add following in `/etc/multipath.conf`
       ```bash
        devices {
          device {
@@ -40,7 +40,7 @@ ___
       ```
       -   check multipath <br> `multipath -ll | grep 2145`
       -   Mapping storage ID
-   -   Configure NTP from /etc/chrony.conf
+   -   Configure NTP from `/etc/chrony.conf`
         -   replace as following (looking for pool -> you can remove or just #)
           ```bash
           # pool .....   iburst
@@ -53,7 +53,7 @@ ___
           `systemctl disable firewalld`<br>
           `setenforce 0`<br>
           `getenforce`
-          -   configure file /etc/selinux/config change from enable to disable
+          -   configure file `/etc/selinux/config` change from enable to disable
                 ```bash
                 SELINUX=disabled
                 ```
@@ -65,10 +65,21 @@ ___
       `yum install kernel-devel cpp gcc gcc-c++ binutils elfutils elfutils-devel -y`
 ___
 5.   Install on Bastion <br>
-      -   Go to path Storage_Scale file that you prepared <br>
+      -  Go to path Storage_Scale file that you prepared <br>
       `./Storage_Scale_Data_Management-5.2.3.0-x86_64-Linux-install` <br>
+      -  Go to path ansible
       `cd /usr/lpp/mmfs/5.2.3.0/ansible-toolkit`<br>
       `./spectrumscale setup -s <ip_bastion>` <br>
       `./spectrumscale node add <Spectrum_Node1_name> -a -g -n -m` # -a = admin , -g = gui, -n = node, -m = manager <br>
       `./spectrumscale node add <Spectrum_Node2_name> -a -g -n` <br>
+      `./spectrumscale callhome disable` # in case you don't use callhome <br>
+      -  If you want to config you can go to `ansible/vars/scale_clusterdefinition.json` for example change scale_daemon_node_name <br>
+      -  run precheck if it's show any error. Debug and fixed it <br>
+      `./spectrumscale install --precheck` <br>
+      -  After you run precheck and it's not have any error, you can run install <br>
+      `./spectrumscale install`<br>
+      -  Add all nsd you want (default name start from nsd1) <br>
+      `./spectrumscale nsd add -p <Spectrum_Node1_name> -s <Spectrum_Node2_name> -u dataAndMetadata "</dev/dm-x>"` <br>
+      -  If you want to change name <br>
+      `./spectrumscale nsd modify <nsd_old_name> --name "<nsd_new_name>"` <br>
       
