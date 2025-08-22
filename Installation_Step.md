@@ -20,7 +20,7 @@ ___
       -  `ssh-copy-id <Spectrum_Node2_name>`
   - Check Storage
     -  `multipath -ll`
-    -  In case you didn't see storage run `scsi-rescan`
+    -  If storage is not detected run `scsi-rescan`
     -  Add following in `/etc/multipath.conf`
       ```bash
        devices {
@@ -72,25 +72,25 @@ ___
       `./spectrumscale setup -s <ip_bastion>` <br>
       `./spectrumscale node add <Spectrum_Node1_name> -a -g -n -m` # -a = admin , -g = gui, -n = node, -m = manager <br>
       `./spectrumscale node add <Spectrum_Node2_name> -a -g -n` <br>
-      `./spectrumscale callhome disable` # in case you don't use callhome <br>
-      -  If you want to config you can go to `ansible/vars/scale_clusterdefinition.json` for example change scale_daemon_node_name <br>
-      -  run precheck if it's show any error. Debug and fixed it <br>
+      `./spectrumscale callhome disable` # If callhome is not used <br>
+      -  Configure can modified in `ansible/vars/scale_clusterdefinition.json` for example change scale_daemon_node_name <br>
+      -  Run the precheck, then debug and fix any reported errors. <br>
       `./spectrumscale install --precheck` <br>
-      -  After you run precheck and it's not have any error, you can run install <br>
+      -  After running the precheck with no errors, run the install <br>
       `./spectrumscale install`<br>
 ___
 6.  Add NSD 
-      -  Add all nsd you want (default name start from nsd1) <br>
+      -  Add all NSDs are needed (default name start from nsd1) <br>
       `./spectrumscale nsd add -p <Spectrum_Node1_name> -s <Spectrum_Node2_name> -u dataAndMetadata "</dev/dm-x>"` <br>
-      -  If you want to change name <br>
+      -  To Change the NSDs name <br>
       `./spectrumscale nsd modify <nsd_old_name> --name "<nsd_new_name>"` <br>
-      - If you want to add name with command you can run <br>
+      - Run following command to add a name <br>
       `./spectrumscale nsd add -p <Spectrum_Node1_name> -s <Spectrum_Node2_name> -u dataAndMetadata --name <nsd_name> "</dev/dm-x>"` <br>
-      - List your nsd config <br>
+      - List the NSDs configuration <br>
       `./spectrumscale nsd list` <br>
-      -  run precheck if it's show any error. Debug and fixed it <br>
+      -  Run the precheck, then debug and fix any reported errors. <br>
       `./spectrumscale install --precheck` <br>
-      -  After you run precheck and it's not have any error, you can run install <br>
+      -  After running the precheck with no errors, run the install <br>
       `./spectrumscale install`<br>
 ___
 7.  Configure `.bash_profile` on Spectrum Node1 , Spectrum Node2 <br>
@@ -105,16 +105,16 @@ ___
   `./spectrumscale filesystem list` <br>
   - Add filesystem to all nsd <br>
   `./spectrumscale nsd modify <nsd_name> -fs <filesystem_name>` <br>
-  - Modify size & mount point of your filesystem <br>
+  - Modify the size and mount point of the filesystem <br>
     `./spectrumscale filesystem modify <filesystem_name> -B <filesystem_size> -m <filesystem_mount_path>`<br>
   - Check configure <br>
     `./spectrumscale filesystem list`<br>
-  - run precheck if it's show any error. Debug and fixed it <br>
+  - Run the precheck, then debug and fix any reported errors. <br>
       `./spectrumscale install --precheck` <br>
-  - After you run precheck and it's not have any error, you can run install <br>
+  - After running the precheck with no errors, run the install <br>
       `./spectrumscale install`<br>
 ___
-10. Log in to your GUI url and then Go to Spectrum Node1 to create user GUI <br>
+10. Access the GUI URL and create a GUI user on Spectrum Node1 <br>
   `/usr/lpp/mmfs/gui/cli/mkuser <username> -p "<password>" -g SecurityAdmin` <br>
 ___
 11. Tuning Filesystem <br>
@@ -129,4 +129,4 @@ ___
   ___
 
   ## Expected Result
-  You can connect to your GUI node and everything in storage scale cluster healthy
+  The GUI node is accessible and the Storage Scale cluster is healthy.
