@@ -64,7 +64,7 @@ ___
 4.   Install package on Spectrum Node1, Spectrum Node2<br>
       `yum install kernel-devel cpp gcc gcc-c++ binutils elfutils elfutils-devel -y`
 ___
-5.   Install on Bastion <br>
+5.   Install Spectrum Scale on Bastion <br>
       -  Go to path Storage_Scale file that you prepared <br>
       `./Storage_Scale_Data_Management-5.2.3.0-x86_64-Linux-install` <br>
       -  Go to path ansible
@@ -78,8 +78,30 @@ ___
       `./spectrumscale install --precheck` <br>
       -  After you run precheck and it's not have any error, you can run install <br>
       `./spectrumscale install`<br>
+___
+6.  Add NSD 
       -  Add all nsd you want (default name start from nsd1) <br>
       `./spectrumscale nsd add -p <Spectrum_Node1_name> -s <Spectrum_Node2_name> -u dataAndMetadata "</dev/dm-x>"` <br>
       -  If you want to change name <br>
       `./spectrumscale nsd modify <nsd_old_name> --name "<nsd_new_name>"` <br>
-      
+      - If you want to add name with command you can run <br>
+      `./spectrumscale nsd add -p <Spectrum_Node1_name> -s <Spectrum_Node2_name> -u dataAndMetadata --name <nsd_name> "</dev/dm-x>"` <br>
+      - List your nsd config <br>
+      `./spectrumscale nsd list` <br>
+      -  run precheck if it's show any error. Debug and fixed it <br>
+      `./spectrumscale install --precheck` <br>
+      -  After you run precheck and it's not have any error, you can run install <br>
+      `./spectrumscale install`<br>
+___
+7.  Configure `.bash_profile` on Spectrum Node1 , Spectrum Node2 <br>
+    ```bash
+    export PATH=$PATH:$HOME/bin:/usr/lpp/mmfs/bin
+___
+8. Go to Spectrum Node1 to add tiebreakerDisks <br>
+  `mmchconfig tiebreakerDisks=<nsd_name>`<br>
+___
+9. Go back to Bastion and Add filesystem <br>
+  -  List file system <br>
+  `./spectrumscale filesystem list` <br>
+  - Change filesystem size <br>
+  `./spectrumscale filesystem modify <filesystem
