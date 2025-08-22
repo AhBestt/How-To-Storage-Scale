@@ -103,5 +103,18 @@ ___
 9. Go back to Bastion and Add filesystem <br>
   -  List file system <br>
   `./spectrumscale filesystem list` <br>
-  - Change filesystem size <br>
-  `./spectrumscale filesystem modify <filesystem
+  - Add filesystem to all nsd <br>
+  `./spectrumscale nsd modify <nsd_name> -fs <filesystem_name>` <br>
+  - Modify size & mount point of your filesystem <br>
+    `./spectrumscale filesystem modify <filesystem_name> -B <filesystem_size> -m <filesystem_mount_path>`<br>
+  - Check configure <br>
+    `./spectrumscale filesystem list`<br>
+  - run precheck if it's show any error. Debug and fixed it <br>
+      `./spectrumscale install --precheck` <br>
+  - After you run precheck and it's not have any error, you can run install <br>
+      `./spectrumscale install`<br>
+___
+10. Log in to your GUI url and then Go to Spectrum Node1 to create user GUI <br>
+  `/usr/lpp/mmfs/gui/cli/mkuser <username> -p "<password>" -g SecurityAdmin` <br>
+___
+11. Tuning Filesystem <br>
